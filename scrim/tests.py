@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from .models import Scrim
 
 
@@ -9,3 +10,11 @@ class ScrimModelTest(TestCase):
 
     def test_verbose_name_plural(self):
         self.assertEqual(str(Scrim._meta.verbose_name_plural), "scrims")
+
+class TestScrimPage(TestCase):
+    def test_status_code(self):
+        response = self.client.get('/scrim')
+
+    def test_uses_base_template(self):
+        response = self.client.get(reverse('scrim'))
+        self.assertTemplateUsed(response, 'base.html')
