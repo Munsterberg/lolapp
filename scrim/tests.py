@@ -13,8 +13,13 @@ class ScrimModelTest(TestCase):
 
 class TestScrimPage(TestCase):
     def test_status_code(self):
-        response = self.client.get('/scrim')
+        response = self.client.get('/scrim/')
+        self.assertEqual(response.status_code, 200)
 
     def test_uses_base_template(self):
         response = self.client.get(reverse('scrim'))
         self.assertTemplateUsed(response, 'base.html')
+
+    def test_uses_scrim_template(self):
+        response = self.client.get(reverse('scrim'))
+        self.assertTemplateUsed(response, 'scrim/scrim.html')
