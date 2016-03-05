@@ -32,3 +32,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def test_login_title(self):
         self.browser.get(self.get_full_url("login"))
         self.assertIn('Login', self.browser.title)
+
+    def test_scrim_title(self):
+        self.browser.get(self.get_full_url("scrim"))
+        self.assertIn('Scrims', self.browser.title)
