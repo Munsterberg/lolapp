@@ -23,3 +23,17 @@ class TestScrimPage(TestCase):
     def test_uses_scrim_template(self):
         response = self.client.get(reverse('scrim'))
         self.assertTemplateUsed(response, 'scrim/scrim.html')
+
+    def test_one_scrim(self):
+        Scrim.objects.create(team_name='Curse', team_captain='Myself', region='na')
+        response = self.client.get('/scrim/')
+        self.assertContains(response, 'Curse')
+        self.assertContains(response, 'Myself')
+
+    def test_two_scrims(self):
+        Scrim.objects.create(team_name='Curse', team_captain='Myself', region='na')
+        Scrim.objects.create(team_name='TSM', team_captain='Bjergsen', region='euw')
+        response = self.client.get('/scrim/')
+        self.assertContains(response, 'Curse')
+        self.assertContains(response, 'TSM')
+
