@@ -11,8 +11,12 @@ class ScrimModelTest(TestCase):
     def test_verbose_name_plural(self):
         self.assertEqual(str(Scrim._meta.verbose_name_plural), "scrims")
 
+    def test_get_absolute_url(self):
+        scrim = Scrim.objects.create(team_name='TSM', team_captain='Bjergsen', region='na')
+        self.assertIsNotNone(scrim.get_absolute_url())
 
-class TestScrimPage(TestCase):
+
+class ScrimPageTest(TestCase):
     def test_status_code(self):
         response = self.client.get('/scrim/')
         self.assertEqual(response.status_code, 200)
@@ -27,12 +31,22 @@ class TestScrimPage(TestCase):
 
     def test_one_scrim(self):
         Scrim.objects.create(team_name='Curse', team_captain='Myself', region='na')
-        response = self.client.get('/scrim/')
+        response = self.client.get(reverse('scrim'))
         self.assertContains(response, 'Curse')
 
     def test_two_scrims(self):
         Scrim.objects.create(team_name='Curse', team_captain='Myself', region='na')
         Scrim.objects.create(team_name='TSM', team_captain='Bjergsen', region='euw')
-        response = self.client.get('/scrim/')
+        response = self.client.get(reverse('scrim'))
         self.assertContains(response, 'Curse')
         self.assertContains(response, 'TSM')
+
+
+class ScrimDetailTest(TestCase):
+    def setUp(self):
+        self.scrim = Scrim.objects.create(team_name='TSM', team_captain='Bjergsen', region='na')
+
+    def test_status_code(self):
+        response = self.client.get(self.scrim.get_absolute_url())
+        # response = self.client.get(reverse('scrim_detail'))
+        self.assertEqual(response.status_code, 200)

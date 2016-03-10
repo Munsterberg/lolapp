@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class Scrim(models.Model):
@@ -9,3 +10,6 @@ class Scrim(models.Model):
 
     def __str__(self):
         return self.team_name
+
+    def get_absolute_url(self):
+        return reverse('scrim_detail', kwargs={'scrim_id': self.pk})

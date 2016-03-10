@@ -7,7 +7,7 @@
     {% if scrims %}
         <ul>
             {% for scrim in scrims %}
-                <li>{{ scrim.team_name }}</li>
+            <li><a href="{% url 'scrim_detail' scrim.id %}">{{ scrim.team_name }}</a></li>
             {% endfor %}
         </ul>
      {% else %}
