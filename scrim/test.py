@@ -50,6 +50,14 @@ class ScrimDetailTest(TestCase):
         response = self.client.get(self.scrim.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
+    def test_uses_scrim_detail_template(self):
+        response = self.client.get(self.scrim.get_absolute_url())
+        self.assertTemplateUsed(response, 'scrim/detail.html')
+
+    def test_uses_base_template(self):
+        response = self.client.get(self.scrim.get_absolute_url())
+        self.assertTemplateUsed(response, 'base.html')
+
     def test_team_name_in_scrim_detail(self):
         response = self.client.get(self.scrim.get_absolute_url())
         self.assertContains(response, self.scrim.team_name)
