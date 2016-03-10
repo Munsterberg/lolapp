@@ -11,6 +11,7 @@ class ScrimModelTest(TestCase):
     def test_verbose_name_plural(self):
         self.assertEqual(str(Scrim._meta.verbose_name_plural), "scrims")
 
+
 class TestScrimPage(TestCase):
     def test_status_code(self):
         response = self.client.get('/scrim/')
@@ -28,7 +29,6 @@ class TestScrimPage(TestCase):
         Scrim.objects.create(team_name='Curse', team_captain='Myself', region='na')
         response = self.client.get('/scrim/')
         self.assertContains(response, 'Curse')
-        self.assertContains(response, 'Myself')
 
     def test_two_scrims(self):
         Scrim.objects.create(team_name='Curse', team_captain='Myself', region='na')
@@ -36,4 +36,3 @@ class TestScrimPage(TestCase):
         response = self.client.get('/scrim/')
         self.assertContains(response, 'Curse')
         self.assertContains(response, 'TSM')
-

@@ -2,7 +2,20 @@
 
 {% block content %}
 
-<h1>Scrim Page</h1>
+<div class="container">
+    <h1>Find a Scrim</h1>
+    {% if scrims %}
+        <ul>
+            {% for scrim in scrims %}
+                <li>{{ scrim.team_name }}</li>
+            {% endfor %}
+        </ul>
+     {% else %}
+        <p>No Scrims are currently available.</p>
+     {% endif %}
+
+</div>
+
 
 {% endblock %}
 
