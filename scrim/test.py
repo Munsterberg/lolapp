@@ -49,3 +49,11 @@ class ScrimDetailTest(TestCase):
     def test_status_code(self):
         response = self.client.get(self.scrim.get_absolute_url())
         self.assertEqual(response.status_code, 200)
+
+    def test_team_name_in_scrim_detail(self):
+        response = self.client.get(self.scrim.get_absolute_url())
+        self.assertContains(response, self.scrim.team_name)
+
+    def test_team_captain_in_scrim_detail(self):
+        response = self.client.get(self.scrim.get_absolute_url())
+        self.assertContains(response, self.scrim.team_captain)
