@@ -48,5 +48,4 @@ class ScrimDetailTest(TestCase):
 
     def test_status_code(self):
         response = self.client.get(self.scrim.get_absolute_url())
-        # response = self.client.get(reverse('scrim_detail'))
         self.assertEqual(response.status_code, 200)
