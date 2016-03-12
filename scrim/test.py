@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django_webtest import WebTest
 
 from .forms import ScrimForm
 from .models import Scrim
@@ -69,7 +70,7 @@ class ScrimDetailTest(TestCase):
         self.assertContains(response, self.scrim.team_captain)
 
 
-class ScrimFormTest(TestCase):
+class ScrimFormTest(WebTest):
     def test_valid_data(self):
         form = ScrimForm({
             'team_name': 'Liquid',

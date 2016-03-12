@@ -1,3 +1,4 @@
 -r base.txt
 
 selenium==2.52.0
+WebTest==2.0.20
