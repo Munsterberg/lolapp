@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+
+from .forms import ScrimForm
 from .models import Scrim
 
 
@@ -65,3 +67,26 @@ class ScrimDetailTest(TestCase):
     def test_team_captain_in_scrim_detail(self):
         response = self.client.get(self.scrim.get_absolute_url())
         self.assertContains(response, self.scrim.team_captain)
+
+
+class ScrimFormTest(TestCase):
+    def test_valid_data(self):
+        form = ScrimForm({
+            'team_name': 'Liquid',
+            'team_captain': 'Jake',
+            'region': 'na',
+        })
+        self.assertTrue(form.is_valid())
+        scrim = form.save()
+        self.assertEqual(scrim.team_name, 'Liquid')
+        self.assertEqual(scrim.team_captain, 'Jake')
+        self.assertEqual(scrim.region, 'na')
+
+    def test_blank_data(self):
+        form = ScrimForm({})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'team_name': ['This field is required.'],
+            'team_captain': ['This field is required.'],
+            'region': ['This field is required.'],
+        })
